@@ -9,25 +9,27 @@
                 tools:context=".MainActivity"
                 android:background="@drawable/background">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
-        android:layout_marginLeft="20dp"
-        android:background="#80ffffff" />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="submit"
-        android:id="@+id/button"
-        android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:layout_marginLeft="20dp"
+        android:id="@+id/btnSubmit"
+        android:layout_marginTop="53dp"
         android:background="#65ffffff"
-        android:textColor="#435c92"/>
+        android:textColor="#435c92"
+        android:layout_below="@+id/txtZipCode"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txtZipCode"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:background="#80ffffff"
+        android:contextClickable="true"/>
 </RelativeLayout>
