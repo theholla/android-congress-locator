@@ -1,5 +1,6 @@
 package epicodus.com.findyourcongressperson.ui;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -17,32 +18,42 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import epicodus.com.findyourcongressperson.R;
+import epicodus.com.findyourcongressperson.adapters.CongressAdapter;
+import epicodus.com.findyourcongressperson.models.CongressPerson;
 import epicodus.com.findyourcongressperson.util.DownloadTask;
 
 
-public class CongressActivity extends AppCompatActivity {
+public class CongressActivity extends ListActivity {
+    public static ArrayList<CongressPerson> mCongressPeople;
+    private CongressAdapter mCongressAdapter;
+
     String mZipcode;
-    @Bind(R.id.txtFirstName) TextView mFirstName;
-    @Bind(R.id.txtLastName) TextView mLastName;
-    @Bind(R.id.txtParty) TextView mParty;
-    @Bind(R.id.txtWebsite) TextView mWebsite;
+    private Runnable mSetAdapterRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congress);
-        ButterKnife.bind(this);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         mZipcode = extras.getString("zipcode");
+        mCongressPeople = new ArrayList<CongressPerson>();
 
         findCongresspeople(mZipcode);
 
+        mSetAdapterRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mCongressAdapter = new CongressAdapter(CongressActivity.this, mCongressPeople);
+                setListAdapter(mCongressAdapter);
+            }
+        };
     }
 
     private void findCongresspeople(String zipcode) {
