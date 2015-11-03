@@ -1,16 +1,28 @@
 package epicodus.com.findyourcongressperson.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import epicodus.com.findyourcongressperson.R;
+import epicodus.com.findyourcongressperson.util.DownloadTask;
+
 
 public class CongressActivity extends AppCompatActivity {
     String mZipcode;
@@ -34,8 +46,15 @@ public class CongressActivity extends AppCompatActivity {
     }
 
     private void findCongresspeople(String zipcode) {
-        Toast.makeText(this, "Zipcode!!!" + zipcode, Toast.LENGTH_LONG).show();
+        try {
+            DownloadTask task = new DownloadTask();
+            task.execute("http://congress.api.sunlightfoundation.com//legislators/locate?zip=" + zipcode + "&apikey=8b15bc61bd5e415199c4c1ef1f76ad25");
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Could not find congresspeople :(", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
