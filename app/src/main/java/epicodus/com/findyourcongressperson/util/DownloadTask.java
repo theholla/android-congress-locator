@@ -1,6 +1,5 @@
 package epicodus.com.findyourcongressperson.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,7 +15,6 @@ import java.net.URL;
 
 import epicodus.com.findyourcongressperson.models.CongressPerson;
 import epicodus.com.findyourcongressperson.ui.CongressActivity;
-import epicodus.com.findyourcongressperson.ui.MainActivity;
 
 public class DownloadTask extends AsyncTask<String, Void, String> {
     public final String TAG = "NO_CONGRESSPERSON";
@@ -49,7 +47,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    //@Override
+    @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
@@ -70,9 +68,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
                 CongressActivity.mCongressPeople.add(myRepresentative);
                 Log.i("My representative is:", myRepresentative.toString());
-
             }
-
 
             Log.i("Congress info", congressInfo);
         } catch (JSONException e){

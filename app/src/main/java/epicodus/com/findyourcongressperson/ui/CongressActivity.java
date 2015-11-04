@@ -2,26 +2,13 @@ package epicodus.com.findyourcongressperson.ui;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import epicodus.com.findyourcongressperson.R;
 import epicodus.com.findyourcongressperson.adapters.CongressAdapter;
 import epicodus.com.findyourcongressperson.models.CongressPerson;
@@ -33,7 +20,6 @@ public class CongressActivity extends ListActivity {
     private CongressAdapter mCongressAdapter;
 
     String mZipcode;
-    private Runnable mSetAdapterRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +37,17 @@ public class CongressActivity extends ListActivity {
     private void findCongresspeople(String zipcode) {
         try {
             DownloadTask task = new DownloadTask();
-            task.execute("http://congress.api.sunlightfoundation.com//legislators/locate?zip=" + zipcode + "&apikey=8b15bc61bd5e415199c4c1ef1f76ad25");
+            String url = "http://congress.api.sunlightfoundation.com//legislators/locate?zip=" + zipcode + "&apikey=8b15bc61bd5e415199c4c1ef1f76ad25";
+            Runnable updateAdapter = new Runnable() {
+                @Override
+                public void run() {
+                    mCongressAdapter = new CongressAdapter(CongressActivity.this, mCongressPeople);
+                    setListAdapter(mCongressAdapter);
+                }
+            };
+            updateAdapter.run();
+            task.execute(url);
+
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Could not find congresspeople :(", Toast.LENGTH_LONG).show();
             e.printStackTrace();
