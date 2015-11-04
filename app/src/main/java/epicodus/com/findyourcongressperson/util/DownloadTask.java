@@ -50,15 +50,13 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
     }
 
     //@Override
-    protected void onPostExecute(String result, final Runnable callback) {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
         try {
             JSONObject jsonObject = new JSONObject(result);
             String congressInfo = jsonObject.getString("results");
             JSONArray congressArray = new JSONArray(congressInfo);
-            ((Activity)mContext).runOnUiThread(callback);
-
 
             for (int i = 0; i < congressArray.length(); i++)  {
                 JSONObject congressPerson = congressArray.getJSONObject(i);

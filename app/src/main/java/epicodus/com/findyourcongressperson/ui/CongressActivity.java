@@ -46,14 +46,6 @@ public class CongressActivity extends ListActivity {
         mCongressPeople = new ArrayList<CongressPerson>();
 
         findCongresspeople(mZipcode);
-
-        mSetAdapterRunnable = new Runnable() {
-            @Override
-            public void run() {
-                mCongressAdapter = new CongressAdapter(CongressActivity.this, mCongressPeople);
-                setListAdapter(mCongressAdapter);
-            }
-        };
     }
 
     private void findCongresspeople(String zipcode) {
