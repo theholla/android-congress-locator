@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import epicodus.com.findyourcongressperson.R;
 import epicodus.com.findyourcongressperson.models.CongressPerson;
 

@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,5 +56,4 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-
-//http://congress.api.sunlightfoundation.com//legislators/locate?zip=97214&apikey=8b15bc61bd5e415199c4c1ef1f76ad25
+//TODO: Add runnable callback to DownloadTask. Read library documentation.
